@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroNexus Admin Portal</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="bg-white text-dark">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom bg-white">
+      <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-primary" href="index.html"
+          >NeuroNexus Admin</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#adminNav"
+          aria-controls="adminNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="adminNav">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#dashboard"
+                >Dashboard</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#studies">Studies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#teams">Teams</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#compliance">Compliance</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+            <div class="text-end">
+              <div class="small text-muted">Signed in as</div>
+              <div id="adminUserEmail" class="fw-semibold">admin@nex.us</div>
+            </div>
+            <button class="btn btn-outline-primary" id="adminSignOutBtn">
+              Sign out
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container-fluid py-4">
+      <div class="row g-4">
+        <aside class="col-12 col-lg-3 col-xl-2">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h2 class="h6 mb-3 text-primary">Quick Actions</h2>
+              <div class="list-group list-group-flush">
+                <button
+                  class="list-group-item list-group-item-action"
+                  data-bs-toggle="modal"
+                  data-bs-target="#createStudyModal"
+                >
+                  + New Study
+                </button>
+                <button
+                  class="list-group-item list-group-item-action"
+                  data-bs-toggle="offcanvas"
+                  data-bs-target="#teamOffcanvas"
+                >
+                  Manage Teams
+                </button>
+                <button
+                  class="list-group-item list-group-item-action"
+                  data-bs-toggle="modal"
+                  data-bs-target="#inviteModal"
+                >
+                  Invite Lab User
+                </button>
+                <button
+                  class="list-group-item list-group-item-action text-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#incidentModal"
+                >
+                  Log Incident
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="col-12 col-lg-9 col-xl-10">
+          <div class="row g-3" id="dashboard">
+            <div class="col-12 col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm dashboard-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="small text-muted">Active Studies</div>
+                      <div class="h3 mb-0 text-primary" id="adminActiveStudies">
+                        0
+                      </div>
+                    </div>
+                    <span class="badge bg-info text-dark">Live</span>
+                  </div>
+                  <small class="text-muted"
+                    >Realtime sync from Firebase Database</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm dashboard-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="small text-muted">Pending Approvals</div>
+                      <div class="h3 mb-0 text-warning" id="adminPendingApprovals">
+                        0
+                      </div>
+                    </div>
+                    <span class="badge bg-warning text-dark">Action</span>
+                  </div>
+                  <small class="text-muted"
+                    >Awaiting sign-off from compliance team</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm dashboard-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="small text-muted">Lab Incidents</div>
+                      <div class="h3 mb-0 text-danger" id="adminIncidents">
+                        0
+                      </div>
+                    </div>
+                    <span class="badge bg-danger">Critical</span>
+                  </div>
+                  <small class="text-muted"
+                    >Escalated reports within last 7 days</small
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-xl-3 col-md-6">
+              <div class="card border-0 shadow-sm dashboard-card h-100">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <div class="small text-muted">Compliance Score</div>
+                      <div class="h3 mb-0 text-success" id="adminComplianceScore">
+                        100%
+                      </div>
+                    </div>
+                    <span class="badge bg-success">Stable</span>
+                  </div>
+                  <small class="text-muted"
+                    >Weighted across all active labs</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card border-0 shadow-sm mt-4" id="studies">
+            <div class="card-header bg-white">
+              <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                <div>
+                  <h2 class="h5 text-primary mb-1">Study Portfolio</h2>
+                  <p class="small text-muted mb-0">
+                    Pulls realtime snapshots from `/studies` node in Firebase
+                  </p>
+                </div>
+                <div class="mt-3 mt-md-0">
+                  <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0">
+                      <i class="bi bi-search"></i>
+                    </span>
+                    <input
+                      type="search"
+                      class="form-control border-start-0"
+                      placeholder="Search by title or PI"
+                      id="studySearchInput"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                  <thead class="table-light">
+                    <tr class="text-uppercase small text-muted">
+                      <th scope="col">Study</th>
+                      <th scope="col">Principal Investigator</th>
+                      <th scope="col">Phase</th>
+                      <th scope="col">Participants</th>
+                      <th scope="col">Status</th>
+                      <th scope="col" class="text-end">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="studyTableBody">
+                    <tr>
+                      <td>
+                        <span class="fw-semibold text-dark"
+                          >NeuroSynapse 01</span
+                        >
+                        <div class="small text-muted">
+                          Auto sync from Firebase
+                        </div>
+                      </td>
+                      <td>Dr. Elisa Monroe</td>
+                      <td>Phase II</td>
+                      <td>
+                        <span class="badge bg-info text-dark">128</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-success">On track</span>
+                      </td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary">
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="fw-semibold text-dark"
+                          >CognitiveBridge</span
+                        >
+                        <div class="small text-muted">Manual data quality review</div>
+                      </td>
+                      <td>Dr. Rafael Kim</td>
+                      <td>Phase I</td>
+                      <td>
+                        <span class="badge bg-info text-dark">64</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Action needed</span>
+                      </td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary">
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="fw-semibold text-dark">NeuroLink Pilot</span>
+                        <div class="small text-muted">Awaiting regulatory submission</div>
+                      </td>
+                      <td>Dr. Anjali Rao</td>
+                      <td>Pilot</td>
+                      <td>
+                        <span class="badge bg-info text-dark">18</span>
+                      </td>
+                      <td>
+                        <span class="badge bg-danger">Paused</span>
+                      </td>
+                      <td class="text-end">
+                        <button class="btn btn-sm btn-outline-primary">
+                          View
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mt-1" id="teams">
+            <div class="col-xl-6">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white">
+                  <h2 class="h6 text-primary mb-0">Team Activity Feed</h2>
+                </div>
+                <div class="card-body">
+                  <ul class="list-unstyled activity-feed mb-0" id="adminActivityFeed">
+                    <li class="activity-item border-bottom pb-3 mb-3">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <strong class="text-dark">Lab Director • East Wing</strong>
+                          <div class="text-muted small">
+                            Added protocol update for NeuroSynapse 01.
+                          </div>
+                        </div>
+                        <span class="badge bg-info text-dark align-self-start"
+                          >2m</span
+                        >
+                      </div>
+                    </li>
+                    <li class="activity-item border-bottom pb-3 mb-3">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <strong class="text-dark">Compliance Officer</strong>
+                          <div class="text-muted small">
+                            Approved deviation report from CognitiveBridge.
+                          </div>
+                        </div>
+                        <span class="badge bg-success align-self-start">5m</span>
+                      </div>
+                    </li>
+                    <li class="activity-item">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <strong class="text-dark">Research Associate</strong>
+                          <div class="text-muted small">
+                            Logged new participant vitals via mobile app.
+                          </div>
+                        </div>
+                        <span class="badge bg-warning text-dark align-self-start"
+                          >12m</span
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6" id="compliance">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                  <h2 class="h6 text-primary mb-0">Compliance Monitor</h2>
+                  <button class="btn btn-sm btn-outline-primary" id="downloadAuditBtn">
+                    Export Logs
+                  </button>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-flush">
+                    <div class="list-group-item px-0">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h3 class="h6 text-dark mb-0">IRB Renewal</h3>
+                          <p class="small text-muted mb-1">
+                            Firebase path: `/compliance/irbRenewals`
+                          </p>
+                          <span class="badge bg-success">On schedule</span>
+                        </div>
+                        <div class="text-end">
+                          <div class="text-muted small">Due</div>
+                          <strong>15 Apr</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h3 class="h6 text-dark mb-0">Protocol Deviations</h3>
+                          <p class="small text-muted mb-1">
+                            Firebase path: `/compliance/deviations`
+                          </p>
+                          <span class="badge bg-warning text-dark">3 Open</span>
+                        </div>
+                        <div class="text-end">
+                          <div class="text-muted small">Action by</div>
+                          <strong>Today</strong>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="list-group-item px-0">
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h3 class="h6 text-dark mb-0">Access Reviews</h3>
+                          <p class="small text-muted mb-1">
+                            Firebase path: `/compliance/accessReviews`
+                          </p>
+                          <span class="badge bg-info text-dark">Pending</span>
+                        </div>
+                        <div class="text-end">
+                          <div class="text-muted small">Action by</div>
+                          <strong>18 Apr</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4 mt-1">
+            <div class="col-12 col-lg-6">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                  <h2 class="h6 text-primary mb-0">Task Distribution</h2>
+                  <div class="text-muted small">Realtime aggregated</div>
+                </div>
+                <div class="card-body">
+                  <div class="progress-stacked">
+                    <div
+                      class="progress"
+                      role="progressbar"
+                      style="width: 35%"
+                      aria-valuenow="35"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div class="progress-bar bg-primary">Admin</div>
+                    </div>
+                    <div
+                      class="progress"
+                      role="progressbar"
+                      style="width: 45%"
+                      aria-valuenow="45"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div class="progress-bar bg-success">Lab</div>
+                    </div>
+                    <div
+                      class="progress"
+                      role="progressbar"
+                      style="width: 20%"
+                      aria-valuenow="20"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div class="progress-bar bg-warning text-dark">Compliance</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                  <h2 class="h6 text-primary mb-0">Realtime Notifications</h2>
+                  <span class="badge bg-info text-dark">Auto-refresh</span>
+                </div>
+                <div class="card-body">
+                  <div class="notification-list" id="adminNotificationStream">
+                    <div class="alert alert-info d-flex justify-content-between align-items-center">
+                      <div>
+                        <strong>Participant threshold met</strong> in CognitiveBridge.
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Review</button>
+                    </div>
+                    <div class="alert alert-warning d-flex justify-content-between align-items-center">
+                      <div>
+                        <strong>Pending SOP update</strong> for NeuroSynapse 01.
+                      </div>
+                      <button class="btn btn-sm btn-outline-primary">Assign</button>
+                    </div>
+                    <div class="alert alert-danger d-flex justify-content-between align-items-center mb-0">
+                      <div>
+                        <strong>Incident escalation</strong> logged by North Lab.
+                      </div>
+                      <button class="btn btn-sm btn-outline-light text-danger border-danger">
+                        Escalate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <div
+      class="modal fade"
+      id="createStudyModal"
+      tabindex="-1"
+      aria-labelledby="createStudyModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h2 class="modal-title h5 text-primary" id="createStudyModalLabel">
+              Create New Study
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="createStudyForm" class="row g-3">
+              <div class="col-md-6">
+                <label for="studyTitle" class="form-label">Study Title</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="studyTitle"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="principalInvestigator" class="form-label"
+                  >Principal Investigator</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="principalInvestigator"
+                  required
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="studyPhase" class="form-label">Phase</label>
+                <select class="form-select" id="studyPhase">
+                  <option>Preclinical</option>
+                  <option>Phase I</option>
+                  <option>Phase II</option>
+                  <option>Phase III</option>
+                  <option>Post-market</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="studyStartDate" class="form-label">Start Date</label>
+                <input type="date" class="form-control" id="studyStartDate" />
+              </div>
+              <div class="col-md-4">
+                <label for="studyInitialParticipants" class="form-label"
+                  >Initial Participants</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="studyInitialParticipants"
+                  min="0"
+                />
+              </div>
+              <div class="col-12">
+                <label for="studyDescription" class="form-label"
+                  >Protocol Overview</label
+                >
+                <textarea
+                  class="form-control"
+                  id="studyDescription"
+                  rows="4"
+                  placeholder="Summarize the protocol, endpoints, and key risks."
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Assign Labs</label>
+                <div class="row g-2">
+                  <div class="col-md-4">
+                    <div class="form-check border rounded-3 p-3 bg-light">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="east-wing"
+                        id="assignEastWing"
+                      />
+                      <label class="form-check-label" for="assignEastWing">
+                        East Wing Neuro Lab
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-check border rounded-3 p-3 bg-light">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="central-neuro"
+                        id="assignCentralNeuro"
+                      />
+                      <label class="form-check-label" for="assignCentralNeuro">
+                        Central Neuro Lab
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-check border rounded-3 p-3 bg-light">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value="north-lab"
+                        id="assignNorthLab"
+                      />
+                      <label class="form-check-label" for="assignNorthLab">
+                        North Lab Group
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="createStudyForm">
+              Save Study
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="inviteModal"
+      tabindex="-1"
+      aria-labelledby="inviteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h2 class="modal-title h5 text-primary" id="inviteModalLabel">
+              Invite Lab User
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="inviteUserForm" class="row g-3">
+              <div class="col-12">
+                <label for="inviteEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inviteEmail"
+                  placeholder="researcher@example.com"
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <label for="inviteRole" class="form-label">Role</label>
+                <select class="form-select" id="inviteRole">
+                  <option>Lab Director</option>
+                  <option>Research Associate</option>
+                  <option>Compliance Officer</option>
+                  <option>Auditor</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="inviteLab" class="form-label">Assign Lab</label>
+                <select class="form-select" id="inviteLab">
+                  <option>East Wing Neuro Lab</option>
+                  <option>Central Neuro Lab</option>
+                  <option>North Lab Group</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="inviteUserForm">
+              Send Invite
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="incidentModal"
+      tabindex="-1"
+      aria-labelledby="incidentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header border-0">
+            <h2 class="modal-title h5 text-primary" id="incidentModalLabel">
+              Log Incident
+            </h2>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="incidentForm" class="row g-3">
+              <div class="col-12">
+                <label for="incidentStudy" class="form-label">Study</label>
+                <select class="form-select" id="incidentStudy">
+                  <option>NeuroSynapse 01</option>
+                  <option>CognitiveBridge</option>
+                  <option>NeuroLink Pilot</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="incidentType" class="form-label">Incident Type</label>
+                <select class="form-select" id="incidentType">
+                  <option>Protocol Deviation</option>
+                  <option>Adverse Event</option>
+                  <option>Data Breach</option>
+                  <option>Equipment Failure</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label for="incidentDescription" class="form-label"
+                  >Description</label
+                >
+                <textarea
+                  class="form-control"
+                  id="incidentDescription"
+                  rows="3"
+                  placeholder="Provide a concise description for reviewers."
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <label for="incidentSeverity" class="form-label">Severity</label>
+                <div class="btn-group w-100" role="group">
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="incidentSeverity"
+                    id="severityLow"
+                    value="low"
+                    checked
+                  />
+                  <label class="btn btn-outline-success" for="severityLow"
+                    >Low</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="incidentSeverity"
+                    id="severityMedium"
+                    value="medium"
+                  />
+                  <label class="btn btn-outline-warning text-dark" for="severityMedium"
+                    >Medium</label
+                  >
+                  <input
+                    type="radio"
+                    class="btn-check"
+                    name="incidentSeverity"
+                    id="severityHigh"
+                    value="high"
+                  />
+                  <label class="btn btn-outline-danger" for="severityHigh"
+                    >High</label
+                  >
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" form="incidentForm">
+              Submit Incident
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="teamOffcanvas"
+      aria-labelledby="teamOffcanvasLabel"
+    >
+      <div class="offcanvas-header border-bottom">
+        <h2 class="h5 text-primary mb-0" id="teamOffcanvasLabel">
+          Team Directory
+        </h2>
+        <button
+          type="button"
+          class="btn-close text-reset"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="text-muted small">Linked to `/teams` node</div>
+          <button class="btn btn-sm btn-primary">
+            Add Team
+          </button>
+        </div>
+        <div class="list-group">
+          <div class="list-group-item border-0 border-bottom">
+            <div class="d-flex justify-content-between">
+              <div>
+                <strong class="text-dark">East Wing Neuro Lab</strong>
+                <div class="text-muted small">Lab Director: Dr. Monroe</div>
+              </div>
+              <span class="badge bg-info text-dark">12 members</span>
+            </div>
+          </div>
+          <div class="list-group-item border-0 border-bottom">
+            <div class="d-flex justify-content-between">
+              <div>
+                <strong class="text-dark">Central Neuro Lab</strong>
+                <div class="text-muted small">Lab Director: Dr. Kim</div>
+              </div>
+              <span class="badge bg-info text-dark">9 members</span>
+            </div>
+          </div>
+          <div class="list-group-item border-0 border-bottom">
+            <div class="d-flex justify-content-between">
+              <div>
+                <strong class="text-dark">North Lab Group</strong>
+                <div class="text-muted small">Lab Director: Dr. Rao</div>
+              </div>
+              <span class="badge bg-info text-dark">7 members</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-3">
+          <div class="modal-body">
+            <h2 class="h5 text-primary mb-3 text-center">
+              Admin Authentication
+            </h2>
+            <div class="nav nav-pills nav-fill gap-2 mb-3" id="authTab" role="tablist">
+              <button
+                class="nav-link active"
+                id="login-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#loginTabPane"
+                type="button"
+                role="tab"
+              >
+                Login
+              </button>
+              <button
+                class="nav-link"
+                id="register-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#registerTabPane"
+                type="button"
+                role="tab"
+              >
+                Register
+              </button>
+            </div>
+            <div class="tab-content">
+              <div
+                class="tab-pane fade show active"
+                id="loginTabPane"
+                role="tabpanel"
+              >
+                <form id="adminLoginForm" class="row g-3">
+                  <div class="col-12">
+                    <label for="adminLoginEmail" class="form-label">Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="adminLoginEmail"
+                      required
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label for="adminLoginPassword" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="adminLoginPassword"
+                      required
+                    />
+                  </div>
+                  <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="adminRememberMe"
+                      />
+                      <label class="form-check-label" for="adminRememberMe">
+                        Remember me
+                      </label>
+                    </div>
+                    <a href="#" class="small text-primary" id="adminResetLink"
+                      >Forgot password?</a
+                    >
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary w-100">
+                      Sign In
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="tab-pane fade" id="registerTabPane" role="tabpanel">
+                <form id="adminRegisterForm" class="row g-3">
+                  <div class="col-12">
+                    <label for="adminRegisterName" class="form-label"
+                      >Full Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="adminRegisterName"
+                      required
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label for="adminRegisterEmail" class="form-label"
+                      >Work Email</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="adminRegisterEmail"
+                      required
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label for="adminRegisterPassword" class="form-label"
+                      >Create Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="adminRegisterPassword"
+                      required
+                    />
+                  </div>
+                  <div class="col-12">
+                    <label for="adminRegisterRole" class="form-label">Role</label>
+                    <select class="form-select" id="adminRegisterRole">
+                      <option>Platform Admin</option>
+                      <option>Compliance Officer</option>
+                      <option>Executive</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-success w-100">
+                      Create Account
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"
+      integrity="sha512-qvlC3fCzzgzYSGVHVQTRYsVHxybkE1sMmjYOEngoVYI9Wj0FBwB8tmMdSvMgii1XSJ9Yf6gdRat+E20QFq8s9w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-auth-compat.min.js"
+      integrity="sha512-2E6N4AG4nPi0m4F6TUojqyMWrqR5exfwVHNEJOUv+KsaGBNdT7ewJ/7aO87Y8n5+MOmhCbY7v9R0N0dXDm0xbA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-database-compat.min.js"
+      integrity="sha512-EYfYy8vK2Pe6YJ9nN0uLwpW0M0HXyXQYld5U9KNQgPACaI65LzyVOLaoPZcMKSbEiW0LGQKIXB9n0OSkg980aA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script src="assets/js/firebase-config.js" defer></script>
+    <script src="assets/js/admin.js" defer></script>
+  </body>
+</html>

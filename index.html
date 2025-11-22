@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuroNexus | Precision Lab Management</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="bg-white text-dark">
+    <nav
+      class="navbar navbar-expand-lg navbar-light border-bottom sticky-top bg-white"
+    >
+      <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="index.html"
+          >NeuroNexus</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+          aria-controls="mainNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link" href="#features">Features</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#workflows">Workflows</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#security">Security</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="btn btn-primary dropdown-toggle ms-lg-3"
+                href="#"
+                id="portalDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Launch Portals
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="portalDropdown">
+                <li>
+                  <a class="dropdown-item text-dark" href="admin.html"
+                    >Admin Portal</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item text-dark" href="lab.html"
+                    >Lab Portal</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="py-5 bg-primary text-white">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <h1 class="display-5 fw-bold">
+              Accelerate Neurology Research With NeuroNexus
+            </h1>
+            <p class="lead">
+              A unified platform for laboratories and administrators to manage
+              research pipelines, compliance, and collaboration in real time.
+            </p>
+            <div class="d-flex gap-3 flex-wrap">
+              <a class="btn btn-light text-primary" href="admin.html">
+                Admin Portal
+              </a>
+              <a class="btn btn-outline-light" href="#features">
+                Explore Features
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card border-0 shadow hero-card">
+              <div class="card-body p-4">
+                <h2 class="h4 text-primary">Live System Overview</h2>
+                <p class="text-muted">
+                  Snapshot derived from Firebase Realtime Database streams.
+                </p>
+                <div class="row g-3">
+                  <div class="col-6">
+                    <div class="stat-card bg-white border rounded-3 p-3">
+                      <div class="text-muted small">Active Studies</div>
+                      <div class="display-6 fw-bold text-primary" id="heroStudiesCount">
+                        0
+                      </div>
+                      <span class="badge bg-info text-dark">Live sync</span>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="stat-card bg-white border rounded-3 p-3">
+                      <div class="text-muted small">Pending Approvals</div>
+                      <div class="display-6 fw-bold text-warning" id="heroPendingCount">
+                        0
+                      </div>
+                      <span class="badge bg-warning text-dark">Action needed</span>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="stat-card bg-white border rounded-3 p-3">
+                      <div class="text-muted small">Compliance Status</div>
+                      <div class="d-flex align-items-center">
+                        <span
+                          class="status-indicator bg-success rounded-circle me-2"
+                        ></span>
+                        <span id="heroComplianceStatus">All labs compliant</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="py-5" id="features">
+        <div class="container">
+          <div class="row align-items-center g-5">
+            <div class="col-lg-6 order-lg-2">
+              <img
+                src="assets/img/dashboard-illustration.svg"
+                class="img-fluid"
+                alt="Dashboard overview illustration"
+              />
+            </div>
+            <div class="col-lg-6">
+              <h2 class="text-primary mb-3">Everything Your Lab Needs</h2>
+              <p>
+                NeuroNexus unifies governance, data capture, and reporting into
+                an intuitive interface. Admin teams get oversight; lab teams get
+                focus.
+              </p>
+              <div class="row g-4">
+                <div class="col-sm-6">
+                  <div class="feature-card border rounded-3 p-3 h-100">
+                    <h3 class="h6 text-dark">Real-Time Study Tracking</h3>
+                    <p class="small">
+                      Firebase-driven dashboards to monitor study milestones and
+                      participant statuses instantly.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="feature-card border rounded-3 p-3 h-100">
+                    <h3 class="h6 text-dark">Compliance Automation</h3>
+                    <p class="small">
+                      Automated alerts, audit logs, and document workflows
+                      tailored for neurological research.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="feature-card border rounded-3 p-3 h-100">
+                    <h3 class="h6 text-dark">Collaboration Tools</h3>
+                    <p class="small">
+                      Secure messaging, task assignments, and versioned lab
+                      notebooks ensure teams stay aligned.
+                    </p>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="feature-card border rounded-3 p-3 h-100">
+                    <h3 class="h6 text-dark">Analytics & Insights</h3>
+                    <p class="small">
+                      Built-in reporting and export options power review
+                      meetings and stakeholder updates.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5 bg-light" id="workflows">
+        <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="text-primary">Streamlined Workflows</h2>
+            <p class="text-muted">
+              Purpose-built modules backed by Firebase Realtime Database for
+              instant cross-portal visibility.
+            </p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-4">
+              <div class="workflow-card border rounded-3 p-4 h-100">
+                <div class="badge bg-primary-subtle text-primary mb-3">
+                  Admin
+                </div>
+                <h3 class="h6 text-dark">Study Governance</h3>
+                <ul class="small ps-3">
+                  <li>Create and configure new studies</li>
+                  <li>Assign lab teams, set milestones</li>
+                  <li>Monitor progress with live data snapshots</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="workflow-card border rounded-3 p-4 h-100">
+                <div class="badge bg-primary-subtle text-primary mb-3">
+                  Lab
+                </div>
+                <h3 class="h6 text-dark">Experiment Execution</h3>
+                <ul class="small ps-3">
+                  <li>Capture observations from bench or bedside</li>
+                  <li>Maintain protocol adherence and checklists</li>
+                  <li>Sync updates immediately to admin dashboards</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="workflow-card border rounded-3 p-4 h-100">
+                <div class="badge bg-primary-subtle text-primary mb-3">
+                  Compliance
+                </div>
+                <h3 class="h6 text-dark">Regulatory Controls</h3>
+                <ul class="small ps-3">
+                  <li>Maintain audit-ready documentation</li>
+                  <li>Automate deviation alerts and escalations</li>
+                  <li>Track certifications and access levels</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5" id="security">
+        <div class="container">
+          <div class="row g-4 align-items-center">
+            <div class="col-lg-5">
+              <h2 class="text-primary">Enterprise Security</h2>
+              <p class="text-muted">
+                Built on Firebase Authentication with role-based access
+                patterns, ensuring every interaction is logged and encrypted.
+              </p>
+              <ul class="list-unstyled security-list">
+                <li>
+                  <span class="badge bg-success me-2">Success</span>
+                  Multi-factor authentication support
+                </li>
+                <li>
+                  <span class="badge bg-info text-dark me-2">Info</span>
+                  Real-time access revocation
+                </li>
+                <li>
+                  <span class="badge bg-warning text-dark me-2">Warning</span>
+                  Automated incident notifications
+                </li>
+                <li>
+                  <span class="badge bg-danger me-2">Error</span>
+                  Data integrity validation rules
+                </li>
+              </ul>
+            </div>
+            <div class="col-lg-7">
+              <div class="card border-0 shadow">
+                <div class="card-body p-4">
+                  <h3 class="h5 text-dark mb-3">Role-Based Access Snapshot</h3>
+                  <div class="table-responsive">
+                    <table class="table align-middle">
+                      <thead class="table-light">
+                        <tr class="text-uppercase small text-muted">
+                          <th scope="col">Role</th>
+                          <th scope="col">Primary Access</th>
+                          <th scope="col">Realtime Streams</th>
+                          <th scope="col" class="text-end">MFA</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Platform Admin</td>
+                          <td>All modules</td>
+                          <td>
+                            <span class="badge bg-success">Full</span>
+                          </td>
+                          <td class="text-end">
+                            <i class="bi bi-shield-lock text-success"></i>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Lab Director</td>
+                          <td>Assigned labs</td>
+                          <td>
+                            <span class="badge bg-info text-dark">Scoped</span>
+                          </td>
+                          <td class="text-end">
+                            <i class="bi bi-shield-lock text-success"></i>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Research Associate</td>
+                          <td>Task queues</td>
+                          <td>
+                            <span class="badge bg-info text-dark">Scoped</span>
+                          </td>
+                          <td class="text-end">
+                            <i class="bi bi-shield-exclamation text-warning"></i>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Auditor</td>
+                          <td>Compliance logs</td>
+                          <td>
+                            <span class="badge bg-info text-dark">Read-only</span>
+                          </td>
+                          <td class="text-end">
+                            <i class="bi bi-shield-lock text-success"></i>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-5 bg-primary text-white">
+        <div class="container">
+          <div class="row align-items-center g-4">
+            <div class="col-lg-8">
+              <h2 class="h3">Ready to Orchestrate Your Neurology Research?</h2>
+              <p class="mb-0">
+                Deploy the NeuroNexus platform across your labs in days, not
+                months. Built for enterprise controls and agile experimentation.
+              </p>
+            </div>
+            <div class="col-lg-4 text-lg-end">
+              <a class="btn btn-light text-primary" href="lab.html">
+                Launch Lab Portal
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-4 border-top bg-white">
+      <div class="container text-center text-muted small">
+        © <span id="footerYear"></span> NeuroNexus Platform. All rights
+        reserved.
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-app-compat.min.js"
+      integrity="sha512-qvlC3fCzzgzYSGVHVQTRYsVHxybkE1sMmjYOEngoVYI9Wj0FBwB8tmMdSvMgii1XSJ9Yf6gdRat+E20QFq8s9w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-auth-compat.min.js"
+      integrity="sha512-2E6N4AG4nPi0m4F6TUojqyMWrqR5exfwVHNEJOUv+KsaGBNdT7ewJ/7aO87Y8n5+MOmhCbY7v9R0N0dXDm0xbA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.7.1/firebase-database-compat.min.js"
+      integrity="sha512-EYfYy8vK2Pe6YJ9nN0uLwpW0M0HXyXQYld5U9KNQgPACaI65LzyVOLaoPZcMKSbEiW0LGQKIXB9n0OSkg980aA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    ></script>
+    <script src="assets/js/firebase-config.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
+  </body>
+</html>

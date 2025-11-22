@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="Dashboard illustration">
+  <defs>
+    <linearGradient id="gradPrimary" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0D6EFD" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#0D6EFD" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="gradAccent" x1="0%" x2="100%" y1="100%" y2="0%">
+      <stop offset="0%" stop-color="#F1F3F5" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" fill="#FFFFFF"/>
+  <rect x="40" y="60" width="560" height="360" rx="24" fill="url(#gradAccent)" stroke="#F1F3F5" stroke-width="2"/>
+  <rect x="80" y="110" width="200" height="140" rx="16" fill="#0D6EFD" opacity="0.12"/>
+  <rect x="310" y="110" width="250" height="140" rx="16" fill="url(#gradPrimary)"/>
+  <rect x="80" y="270" width="480" height="100" rx="16" fill="#FFFFFF" stroke="#F1F3F5" stroke-width="2"/>
+  <rect x="98" y="288" width="120" height="24" rx="12" fill="#0D6EFD" opacity="0.15"/>
+  <rect x="98" y="322" width="220" height="18" rx="9" fill="#0D6EFD" opacity="0.25"/>
+  <rect x="98" y="348" width="160" height="18" rx="9" fill="#0DCAF0" opacity="0.35"/>
+  <circle cx="180" cy="190" r="52" fill="#FFFFFF" stroke="#0D6EFD" stroke-width="6" opacity="0.8"/>
+  <path d="M150 190h60" stroke="#0D6EFD" stroke-width="6" stroke-linecap="round"/>
+  <path d="M180 160v60" stroke="#0D6EFD" stroke-width="6" stroke-linecap="round"/>
+  <polyline points="340,150 360,190 400,130 440,200 500,120" fill="none" stroke="#0D6EFD" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="360" cy="190" r="10" fill="#0DCAF0"/>
+  <circle cx="400" cy="130" r="10" fill="#28A745"/>
+  <circle cx="440" cy="200" r="10" fill="#FFC107"/>
+  <circle cx="500" cy="120" r="10" fill="#DC3545"/>
+  <rect x="320" y="230" width="180" height="18" rx="9" fill="#0D6EFD" opacity="0.2"/>
+  <rect x="320" y="254" width="140" height="18" rx="9" fill="#28A745" opacity="0.3"/>
+  <rect x="320" y="278" width="160" height="18" rx="9" fill="#FFC107" opacity="0.3"/>
+  <rect x="320" y="302" width="120" height="18" rx="9" fill="#DC3545" opacity="0.3"/>
+  <circle cx="120" cy="92" r="8" fill="#0D6EFD"/>
+  <circle cx="150" cy="92" r="8" fill="#0DCAF0"/>
+  <circle cx="180" cy="92" r="8" fill="#28A745"/>
+</svg>
